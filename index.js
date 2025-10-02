@@ -1,11 +1,14 @@
-const express = require("express");
+const express = require('express');
+const logger = require('./middelware/logger');
+const e = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = 3000;
+const messageRouter = require ('./routers/v1/messages');
 
-app.get("/", (req, res) => {
-  res.send("Mijn naam is Benedicte");
-});
 
-app.listen(PORT, () => {
-  console.log(`Server draait op http://localhost:${PORT}`);
-});
+app.use("/api/v1/messages/", messageRouter);
+app.use(express.json());
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
